@@ -1,11 +1,20 @@
 <template>
-  <div id="app"></div>
+  <div id="app">
+    <BooksList :list="getBooksList" />
+  </div>
 </template>
 
 <script>
+import BooksList from "./components/BooksList";
+import { mapGetters } from "vuex";
 export default {
-  // eslint-disable-next-line prettier/prettier
   name: "App",
+  components: {
+    BooksList,
+  },
+  computed: {
+    ...mapGetters("books", ["getBooksList"]),
+  },
 };
 </script>
 
