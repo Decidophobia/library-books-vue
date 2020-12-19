@@ -17,10 +17,14 @@ const booksStore = {
   getters: {
     getBooksList: ({ bookList }) => bookList,
     getGenresList: () => {
-      const arr = baseBook
+      const arrGenres = baseBook
         .map((item) => item.genres)
         .reduce((a, b) => ["Все"].concat(a, b));
-      return [...new Set(arr)];
+      return [...new Set(arrGenres)];
+    },
+    getAutorList: ({ bookList }) => {
+      const arrAutor = bookList.map((item) => item.author);
+      return [...new Set(arrAutor)];
     },
   },
   mutations: {

@@ -17,9 +17,22 @@
         </b-button-group>
       </BCol>
       <BCol cols="12" v-for="book in list" :key="book.id">
-        <BooksListItem :book="book" @removeItem="onRemoveItem" />
+        <BooksListItem
+          :book="book"
+          @removeItem="onRemoveItem"
+          @showModalBook="onShowModalBook"
+        />
+      </BCol>
+      <BCol cols="12">
+        <h2>Показано книг : {{ list.length }} шт.</h2>
+        <h2>Количество авторов : {{ getAutorList.length }}</h2>
       </BCol>
     </BRow>
+    <BModal :id="bookForModalId" size="sm" hide-footer hide-header>
+      <h1>{{ selectedBook }}</h1>
+      <h2>selectedBook.title</h2>
+      <h2></h2>
+    </BModal>
   </BContainer>
 </template>
 
@@ -33,6 +46,10 @@ export default {
   components: {
     BooksListItem,
   },
+  data: () => ({
+    bookForModalId: "modal-info",
+    selectedBookId: "",
+  }),
   props: {
     list: {
       type: Array,
@@ -40,7 +57,10 @@ export default {
     },
   },
   computed: {
-    ...mapGetters("books", ["getGenresList", "getBooksList"]),
+    ...mapGetters("books", ["getGenresList", "getBooksList", "getAutorList"]),
+    selectedBook() {
+      return this.selectedBookId ? this.list[this.selectedBookId - 1] : null;
+    },
   },
   methods: {
     ...mapActions("books", [
@@ -60,6 +80,10 @@ export default {
     },
     onSortBooksGanres(genre) {
       this.sortBooksGenres(genre);
+    },
+    onShowModalBook(id) {
+      this.selectedBookId = id;
+      this.$bvModal.show(this.bookForModalId);
     },
   },
 };

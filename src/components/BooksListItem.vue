@@ -1,5 +1,5 @@
 <template>
-  <div id="books-list_item">
+  <div id="books-list_item" @click="emitShowInfoModal">
     <div class="title item">
       {{ book.title }}
     </div>
@@ -38,6 +38,9 @@ export default {
     },
     onSortBooksGanres(genre) {
       this.sortBooksGenres(genre);
+    },
+    emitShowInfoModal() {
+      this.$emit("showModalBook", this.book.id);
     },
   },
 };
