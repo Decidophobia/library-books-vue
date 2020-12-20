@@ -4,7 +4,20 @@
       <h3>Редактировать информацию</h3>
       <BIconX class="close-icon" @click="closeModal" />
     </header>
-    <BForm @submit.stop.prevent="onChageBook">
+    <BForm @submit.stop.prevent="onChageBook" class="form-change">
+      <BFormGroup label-for="feedback-user">
+        <Label>Название</Label>
+        <BFormInput
+          v-model="titleData"
+          :state="validationTitle"
+          id="feedback-user"
+          required
+        />
+        <BFormInvalidFeedback :state="validationTitle">
+          Название должно быть не меньше 2 символов
+        </BFormInvalidFeedback>
+      </BFormGroup>
+
       <BFormGroup label-for="feedback-author">
         <Label>Автор</Label>
         <BFormInput
@@ -19,18 +32,6 @@
         </BFormInvalidFeedback>
       </BFormGroup>
 
-      <BFormGroup label-for="feedback-user">
-        <Label>Название</Label>
-        <BFormInput
-          v-model="titleData"
-          :state="validationTitle"
-          id="feedback-user"
-          required
-        />
-        <BFormInvalidFeedback :state="validationTitle">
-          Название должно быть не меньше 2 символов
-        </BFormInvalidFeedback>
-      </BFormGroup>
       <!-- Теги и жанры -->
 
       <BFormGroup label-for="tags-component-select">
@@ -74,7 +75,9 @@
           Хотя бы 1 жанр
         </BFormInvalidFeedback>
       </BFormGroup>
-      <BButton type="submit">123</BButton>
+      <div class="text-center mt-4">
+        <BButton type="submit" size="lg" variant="success">Сорханить</BButton>
+      </div>
     </BForm>
   </div>
 </template>
@@ -139,5 +142,12 @@ export default {
   align-items: center;
   padding: 1rem;
   background: #00adff1c;
+}
+.book-modal-header .close-icon {
+  font-size: 4rem;
+  cursor: pointer;
+}
+.form-change {
+  padding: 20px 50px 10px 50px;
 }
 </style>

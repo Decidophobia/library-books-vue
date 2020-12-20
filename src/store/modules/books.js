@@ -49,9 +49,9 @@ const booksStore = {
     },
     [SORT_BOOK_AUTHOR](state) {
       if (state.sortAutor) {
-        state.bookList.sort((a, b) => (b.author > a.author ? -1 : 1));
-      } else {
         state.bookList.sort((a, b) => (b.author < a.author ? -1 : 1));
+      } else {
+        state.bookList.sort((a, b) => (b.author > a.author ? -1 : 1));
       }
       state.sortAutor = !state.sortAutor;
     },

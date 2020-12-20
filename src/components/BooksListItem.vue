@@ -1,17 +1,23 @@
 <template>
-  <div id="books-list_item">
-    <router-link
-      class="link"
-      :to="{ name: 'bookDetails', params: { id: book.id } }"
-    >
-      <div class="title item">
+  <BRow id="books-list_item">
+    <BCol cols="3" class="title item">
+      <router-link
+        class="link"
+        :to="{ name: 'bookDetails', params: { id: book.id } }"
+      >
         {{ book.title }}
-      </div>
-      <div class="author item">
+      </router-link>
+    </BCol>
+    <BCol cols="3" class="author item">
+      <router-link
+        class="link"
+        :to="{ name: 'bookDetails', params: { id: book.id } }"
+      >
         {{ book.author }}
-      </div>
-    </router-link>
-    <div class="genres item">
+      </router-link>
+    </BCol>
+
+    <BCol cols="5" class="genres item">
       <span
         class="genres-box"
         v-for="genres in book.genres"
@@ -19,11 +25,11 @@
         @click="onSortBooksGanres(genres)"
         >{{ genres }}</span
       >
-    </div>
+    </BCol>
     <b-button variant="outline-danger" @click="emitRemoveItem"
       >Удалить</b-button
     >
-  </div>
+  </BRow>
 </template>
 
 <script>
@@ -52,11 +58,6 @@ export default {
 </script>
 
 <style scoped>
-#books-list_item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
 #books-list_item div {
   text-align: left;
   padding: 10px;
@@ -67,7 +68,7 @@ export default {
 }
 .link {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   width: 100%;
   color: #444444;
   font-size: 1.2rem;

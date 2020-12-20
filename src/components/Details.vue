@@ -62,9 +62,10 @@
       </BCard>
       <BModal
         :id="bookModalId"
-        size="xl"
+        size="lg"
         hide-footer
         hide-header
+        centered
         body-class="book-modal-body"
       >
         <ModalBookEdit :book="book" @closeModal="onCloseModal" />
