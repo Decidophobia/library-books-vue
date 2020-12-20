@@ -5,7 +5,7 @@
         <BRow no-gutters>
           <BCol md="5">
             <BCardImg
-              :src="book.img"
+              :src="book.img ? book.img : null"
               alt="Image"
               class="rounded-0 p-3"
             ></BCardImg>
@@ -33,7 +33,7 @@
                   {{ genres }}
                 </span>
               </BCardText>
-              <BBCardText class="d-flex justify-content-between">
+              <BCardText class="d-flex justify-content-between">
                 <BButton
                   variant="outline-secondary"
                   :to="{ name: 'bookDetails', params: getBeforePage(book.id) }"
@@ -43,7 +43,9 @@
                 <BButton variant="outline-info" :to="{ name: 'main' }">
                   К списку книг
                 </BButton>
-                <BButton variant="outline-success"> Редактировать</BButton>
+                <BButton @click="showModalWind" variant="outline-success">
+                  Редактировать</BButton
+                >
                 <BButton
                   variant="outline-secondary"
                   :to="{
@@ -53,25 +55,43 @@
                 >
                   Следующая
                 </BButton>
-              </BBCardText>
+              </BCardText>
             </BCardBody>
           </BCol>
         </BRow>
       </BCard>
+      <BModal
+        :id="bookModalId"
+        size="xl"
+        hide-footer
+        hide-header
+        body-class="book-modal-body"
+      >
+        <ModalBookEdit :book="book" @closeModal="onCloseModal" />
+      </BModal>
     </BContainer>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import ModalBookEdit from "./ModalBookEdit";
 export default {
   name: "Details",
+  data: () => ({
+    bookModalId: "book-modal",
+  }),
+
+  components: { ModalBookEdit },
   computed: {
     ...mapGetters("books", ["getBooksList"]),
     book() {
-      return this.$route.params;
+      if (this.$route.params.id) {
+        return this.getBooksList.find((el) => el.id == this.$route.params.id);
+      } else return this.getBooksList[0];
     },
   },
+
   methods: {
     getNextPage(value) {
       const index = this.getBooksList.findIndex((item) => item.id == value);
@@ -79,13 +99,20 @@ export default {
     },
     getBeforePage(value) {
       const index = this.getBooksList.findIndex((item) => item.id == value);
+
       return this.getBooksList[index - 1];
+    },
+    showModalWind() {
+      this.$bvModal.show(this.bookModalId);
+    },
+    onCloseModal() {
+      this.$bvModal.hide(this.bookModalId);
     },
   },
 };
 </script>
 
-<style scope>
+<style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,500;0,700;1,300&display=swap");
 .details {
   min-height: 100vh;
@@ -106,5 +133,10 @@ export default {
   padding: 5px;
   border-radius: 8px;
   margin-left: 5px;
+}
+</style>
+<style>
+.book-modal-body {
+  padding: 0 !important;
 }
 </style>

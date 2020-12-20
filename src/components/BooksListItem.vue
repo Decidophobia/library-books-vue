@@ -1,6 +1,9 @@
 <template>
   <div id="books-list_item">
-    <router-link class="link" :to="{ name: 'bookDetails', params: book }">
+    <router-link
+      class="link"
+      :to="{ name: 'bookDetails', params: { id: book.id } }"
+    >
       <div class="title item">
         {{ book.title }}
       </div>
@@ -41,11 +44,14 @@ export default {
     onSortBooksGanres(genre) {
       this.sortBooksGenres(genre);
     },
+    onGetBook(id) {
+      console.log(id);
+    },
   },
 };
 </script>
 
-<style scope>
+<style scoped>
 #books-list_item {
   display: flex;
   justify-content: space-between;

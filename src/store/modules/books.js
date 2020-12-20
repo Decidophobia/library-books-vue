@@ -5,6 +5,7 @@ const {
   SORT_BOOK_AUTHOR,
   SORT_BOOK_GENRES,
   SORT_BOOK_TITLE,
+  CHANGE_BOOK_INFO,
 } = mutation;
 const booksStore = {
   namespaced: true,
@@ -13,9 +14,17 @@ const booksStore = {
     sortAutor: false,
     sortGenres: false,
     sortTitle: false,
+    book: {},
   },
+
   getters: {
     getBooksList: ({ bookList }) => bookList,
+    getGenresForChange: () => {
+      const arrGenres = baseBook
+        .map((item) => item.genres)
+        .reduce((a, b) => a.concat(b));
+      return [...new Set(arrGenres)];
+    },
     getGenresList: () => {
       const arrGenres = baseBook
         .map((item) => item.genres)
@@ -27,9 +36,16 @@ const booksStore = {
       return [...new Set(arrAutor)];
     },
   },
+
   mutations: {
     [REMOVE_BOOK](state, index) {
       state.bookList.splice(index, 1);
+    },
+    [CHANGE_BOOK_INFO](state, obj) {
+      const index = state.bookList.findIndex((item) => item.id == obj.id);
+      state.bookList[index].title = obj.title;
+      state.bookList[index].author = obj.author;
+      state.bookList[index].genres = obj.genres;
     },
     [SORT_BOOK_AUTHOR](state) {
       if (state.sortAutor) {
@@ -54,6 +70,7 @@ const booksStore = {
       state.sortTitle = !state.sortTitle;
     },
   },
+
   actions: {
     removeBook({ commit, state }, id) {
       const index = state.bookList.findIndex((item) => item.id == id);
@@ -72,6 +89,9 @@ const booksStore = {
     },
     sortBooksTitle({ commit }) {
       commit(SORT_BOOK_TITLE);
+    },
+    changeBookInfo({ commit }, obj) {
+      commit(CHANGE_BOOK_INFO, obj);
     },
   },
 };
