@@ -1,11 +1,13 @@
 <template>
-  <div id="books-list_item" @click="emitShowInfoModal">
-    <div class="title item">
-      {{ book.title }}
-    </div>
-    <div class="author item">
-      {{ book.author }}
-    </div>
+  <div id="books-list_item">
+    <router-link class="link" :to="{ name: 'bookDetails', params: book }">
+      <div class="title item">
+        {{ book.title }}
+      </div>
+      <div class="author item">
+        {{ book.author }}
+      </div>
+    </router-link>
     <div class="genres item">
       <span
         class="genres-box"
@@ -39,9 +41,6 @@ export default {
     onSortBooksGanres(genre) {
       this.sortBooksGenres(genre);
     },
-    emitShowInfoModal() {
-      this.$emit("showModalBook", this.book.id);
-    },
   },
 };
 </script>
@@ -60,7 +59,16 @@ export default {
   align-items: center;
   justify-content: center;
 }
-
+.link {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  color: #444444;
+  font-size: 1.2rem;
+}
+.link:hover {
+  text-decoration: none;
+}
 .genres-box {
   display: inline-flex;
   text-align: center;
