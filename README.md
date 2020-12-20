@@ -1,24 +1,29 @@
 # library-books-vue
 
-## Project setup
-```
-npm install
-```
+Простая библиотека книг на Vue с использованием Vuex и Bootstrap UI
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## Используемые технологии
++ Vue
++ Vuex
++ Vue Router
++ Bootstrap UI
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## Скриншот
+<img src="https://i.ibb.co/MDT7jyb/books.png"/>
 
-### Lints and fixes files
-```
-npm run lint
-```
+## Фукционал приложения
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+- Использование store для работы с данными
+- Удаление книг
+- Фильтрация по жанрам
+- Сортировка по схожим жанрам
+- Сортировка по назаваниям и авторам
+- Просмотр информации о книги в одельном окне
+- Изменение информации о книги в модальном окне.
+- Возможность переключать книги при просмотре (следующая, предыдущая, в соответствии с отфильтрованным/сортированным списком)
+- Валидация форм
+
+## Установка и запуск
+
++ npm install
++ npm run serve
