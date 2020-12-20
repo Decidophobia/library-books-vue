@@ -9,7 +9,7 @@
 + Bootstrap UI
 
 ## Скриншот
-<img src="https://i.ibb.co/MDT7jyb/books.png"/>
+<img src="https://i.ibb.co/HqTJHGj/books.png"/>
 
 ## Фукционал приложения
 
