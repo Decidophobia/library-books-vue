@@ -1,24 +1,19 @@
 <template>
   <div id="app">
-    <BooksList :list="getBooksList" />
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
   </div>
 </template>
 
 <script>
-import BooksList from "./components/BooksList";
-import { mapGetters } from "vuex";
 export default {
   name: "App",
-  components: {
-    BooksList,
-  },
-  computed: {
-    ...mapGetters("books", ["getBooksList"]),
-  },
 };
 </script>
 
 <style>
 #app {
+  min-height: 100vh;
 }
 </style>
